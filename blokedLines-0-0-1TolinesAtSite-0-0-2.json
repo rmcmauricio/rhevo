@@ -52,8 +52,8 @@
    {
       "$group":{
          "_id":"$_id",
-         "lines":{
-            "$push":"$lines"
+         "blockedLines":{
+            "$push":"$blockedLines"
          },
          "requestId":{
             "$first":"$requestId"
