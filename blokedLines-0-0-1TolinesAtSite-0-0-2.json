@@ -54,46 +54,12 @@
          "_id":"$_id",
          "blockedLines":{
             "$push":"$blockedLines"
-         },
-         "requestId":{
-            "$first":"$requestId"
-         },
-         "startDateTime":{
-            "$first":"$startDateTime"
-         },
-         "endDateTime":{
-            "$first":"$endDateTime"
-         },
-         "duration":{
-            "$first":"$duration"
-         },
-         "dateCompletedBy":{
-            "$first":"$dateCompletedBy"
-         },
-         "workToBeUndertaken":{
-            "$first":"$workToBeUndertaken"
-         },
-         "workLocation":{
-            "$first":"$workLocation"
-         },
-         "surrenderBlockageForTrains":{
-            "$first":"surrenderBlockageForTrains"
-         },
-         "priority":{
-            "$first":"$priority"
-         },
-         "priorityJustification":{
-            "$first":"$priorityJustification"
-         },
-         "blockageType":{
-            "$first":"$blockageType"
-         },
-         "possessionId":{
-            "$first":"$possessionId"
-         },
-         "linesProtectedByPossession":{
-            "$first":"$linesProtectedByPossession"
          }
+      }
+   },
+   {
+      "$project":{
+         "_id":0
       }
    }
 ]
