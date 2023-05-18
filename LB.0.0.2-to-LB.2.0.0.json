@@ -7,11 +7,6 @@
   ],
   "aggregationPipeline": [
     {
-      "$match": {
-        "_id": "ObjectId('63bf7e8fafafb4a055067a24')"
-      }
-    },
-    {
       "$addFields": {
         "shifts.type": "ad-hoc",
         "shifts.schedule.start": "$startDateTime",
