@@ -1,4 +1,4 @@
-{
+[
   "network-gbr-lineBlockageRequest" : [
     {
       "originalSchema" : "https://schemas.on-trac.co.uk/documents/network-rail/line-blockage-request-0-0-2.json",
@@ -7,5 +7,5 @@
       ]
     }
   ]
-}
+]
 
