@@ -6,83 +6,102 @@
     }
   ],
   "aggregationPipeline": [
-    {
-      "$addFields": {
-        "shifts.type": "ad-hoc",
-        "shifts.schedule.start": "$startDateTime",
-        "shifts.schedule.end": "$endDateTime",
-        "shifts.schedule.duration": "$duration",
-        "requesterUserId": {
-          "$toInt": "$lbRequesterUserProfile.userId"
-        },
-        "planningAssistantId": {
-          "$toInt": "$planningAssistantUserProfile.userId"
-        }
+   {
+      "$addFields":{
+         "shifts.type":"ad-hoc",
+         "shifts.schedule.start":"$startDateTime",
+         "shifts.schedule.end":"$endDateTime",
+         "shifts.schedule.duration":"$duration",
+         "requesterUserId":{
+            "$toInt":"$lbRequesterUserProfile.userId"
+         },
+         "planningAssistantId":{
+            "$toInt":"$planningAssistantUserProfile.userId"
+         }
       }
-    },
-    {
-      "$lookup": {
-        "from": "common-user",
-        "localField": "requesterUserId",
-        "foreignField": "p4dInternalUserId",
-        "as": "lbrequester",
-        "pipeline": [
-          {
-            "$project": {
-              "_id": 0,
-              "refDoc": "$_id",
-              "refDocVersion": "$_version",
-              "refDocCollection": "network-gbr/common-user",
-              "fistName": "$firstName",
-              "lastName": "lastName"
+   },
+   {
+      "$lookup":{
+         "from":"network-gbr-planningAssistantArea",
+         "localField":"planningAssistantArea",
+         "foreignField":"title",
+         "as":"planningAssistantArea",
+         "pipeline":[
+            {
+               "$project":{
+                  "_id":0,
+                  "refDoc":"$_id",
+                  "refDocVersion":"$_version",
+                  "refDocCollection":"network-gbr/planningAssistantArea",
+                  "title":"$title"
+               }
             }
-          }
-        ]
+         ]
       }
-    },
-    {
-      "$lookup": {
-        "from": "common-user",
-        "localField": "planningAssistantId",
-        "foreignField": "p4dInternalUserId",
-        "as": "planningAssistant",
-        "pipeline": [
-          {
-            "$project": {
-              "_id": 0,
-              "refDoc": "$_id",
-              "refDocVersion": "$_version",
-              "refDocCollection": "network-gbr/common-user",
-              "fistName": "$firstName",
-              "lastName": "lastName"
+   },
+   {
+      "$lookup":{
+         "from":"common-user",
+         "localField":"requesterUserId",
+         "foreignField":"p4dInternalUserId",
+         "as":"lbrequester",
+         "pipeline":[
+            {
+               "$project":{
+                  "_id":0,
+                  "refDoc":"$_id",
+                  "refDocVersion":"$_version",
+                  "refDocCollection":"network-gbr/common-user",
+                  "fistName":"$firstName",
+                  "lastName":"$lastName"
+               }
             }
-          }
-        ]
+         ]
       }
-    },
-    {
-      "$replaceWith": {
-        "$setField": {
-          "field": {
-            "$literal": "$schema"
-          },
-          "input": "$$ROOT",
-          "value": "https://schemas.on-trac.co.uk/documents/network-rail/line-blockage-request-2-0-0.json"
-        }
+   },
+   {
+      "$lookup":{
+         "from":"common-user",
+         "localField":"planningAssistantId",
+         "foreignField":"p4dInternalUserId",
+         "as":"planningAssistant",
+         "pipeline":[
+            {
+               "$project":{
+                  "_id":0,
+                  "refDoc":"$_id",
+                  "refDocVersion":"$_version",
+                  "refDocCollection":"network-gbr/common-user",
+                  "fistName":"$firstName",
+                  "lastName":"$lastName"
+               }
+            }
+         ]
       }
-    },
-    {
-      "$project": {
-        "startDateTime": 0,
-        "endDateTime": 0,
-        "duration": 0,
-        "requestId": 0,
-        "workLocation": 0,
-        "requesterUserId": 0,
-        "planningAssistantId": 0,
-        "lbRequesterUserProfile": 0,
-        "planningAssistantUserProfile": 0
+   },
+   {
+      "$replaceWith":{
+         "$setField":{
+            "field":{
+               "$literal":"$schema"
+            },
+            "input":"$$ROOT",
+            "value":"https://schemas.on-trac.co.uk/documents/network-rail/line-blockage-request-2-0-0.json"
+         }
       }
-    }
-  ]
+   },
+   {
+      "$project":{
+         "startDateTime":0,
+         "endDateTime":0,
+         "duration":0,
+         "requestId":0,
+         "workLocation":0,
+         "requesterUserId":0,
+         "planningAssistantId":0,
+         "lbRequesterUserProfile":0,
+         "planningAssistantUserProfile":0
+      }
+   }
+]
 }
