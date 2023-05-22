@@ -1,7 +1,12 @@
 [
-   {
-      "https://schemas.on-trac.co.uk/documents/network-rail/line-blockage-request-0-0-2.json":[
-         "https://raw.githubusercontent.com/rmcmauricio/rhevo/main/LB.0.0.2-to-LB.2.0.0.json"
-      ]
-   }
+  {
+    "https://schemas.on-trac.co.uk/documents/network-rail/line-blockage-request-0-0-2.json":[
+      "https://raw.githubusercontent.com/rmcmauricio/rhevo/main/LB.0.0.2-to-LB.2.0.0.json"
+    ]
+  },
+  {
+    "https://schemas.on-trac.co.uk/documents/network-rail/line-blockage-request-0-0-1.json":[
+      "https://raw.githubusercontent.com/rmcmauricio/rhevo/main/LB.0.0.2-to-LB.2.0.0.json"
+    ]
+  }
 ]
