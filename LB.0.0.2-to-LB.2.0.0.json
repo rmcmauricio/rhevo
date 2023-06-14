@@ -2,7 +2,7 @@
   "fieldToMigrate" : [
     {
       "field" : "blockedLines",
-      "aggregationPipeline" : "https://raw.githubusercontent.com/rmcmauricio/rhevo/main/blokedLines-0-0-1TolinesAtSite-0-0-2.json"
+      "aggregationPipeline" : "https://schemas.on-trac.co.uk/migration/fields/network-gbr/blockedLines-0-0-1TolinesAtSite-0-0-2.json"
     }
   ],
   "migrationIssues": [
@@ -25,6 +25,11 @@
           "$toInt":"$planningAssistantUserProfile.userId"
         }
       }
+    },
+    {
+      "$addFields": {
+        "shifts": ["$shift"],
+      },
     },
     {
       "$lookup":{
@@ -106,7 +111,8 @@
         "requesterUserId":0,
         "planningAssistantId":0,
         "lbRequesterUserProfile":0,
-        "planningAssistantUserProfile":0
+        "planningAssistantUserProfile":0,
+        "shift": 0
       }
     }
   ]
