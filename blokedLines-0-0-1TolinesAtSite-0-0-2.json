@@ -59,8 +59,15 @@
     }
   },
   {
+    "$set":
+    {
+      "blockedLines.lines": "$lines"
+    }
+  },
+  {
     "$project": {
-      "_id": 0
+      "_id": 0,
+      "lines": 0
     }
   }
 ]
