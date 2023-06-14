@@ -28,8 +28,8 @@
     },
     {
       "$addFields": {
-        "shifts": ["$shift"],
-      },
+        "shifts": ["$shift"]
+      }
     },
     {
       "$lookup":{
