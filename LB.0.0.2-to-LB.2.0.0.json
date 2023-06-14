@@ -111,8 +111,7 @@
         "requesterUserId":0,
         "planningAssistantId":0,
         "lbRequesterUserProfile":0,
-        "planningAssistantUserProfile":0,
-        "shift": 0
+        "planningAssistantUserProfile":0
       }
     }
   ]
