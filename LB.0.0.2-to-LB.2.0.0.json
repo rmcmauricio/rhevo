@@ -14,10 +14,10 @@
   "aggregationPipeline": [
     {
       "$addFields":{
-        "shifts.type":"ad-hoc",
-        "shifts.schedule.start":"$startDateTime",
-        "shifts.schedule.end":"$endDateTime",
-        "shifts.schedule.duration":"$duration",
+        "shift.type":"ad-hoc",
+        "shift.schedule.start":"$startDateTime",
+        "shift.schedule.end":"$endDateTime",
+        "shift.schedule.duration":"$duration",
         "requesterUserId":{
           "$toInt":"$lbRequesterUserProfile.userId"
         },
@@ -111,7 +111,8 @@
         "requesterUserId":0,
         "planningAssistantId":0,
         "lbRequesterUserProfile":0,
-        "planningAssistantUserProfile":0
+        "planningAssistantUserProfile":0,
+        "shift":0
       }
     }
   ]
