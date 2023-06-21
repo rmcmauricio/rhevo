@@ -46,7 +46,8 @@
     }
   },
   {
-    "blockedLines.lines.lineElrInfo",
+    "$unset":
+    "blockedLines.lines.lineElrInfo"
   },
   {
     "$set": {
