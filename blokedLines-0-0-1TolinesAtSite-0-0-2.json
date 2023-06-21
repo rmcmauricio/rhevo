@@ -46,13 +46,17 @@
     }
   },
   {
-    "$unset":
-    "blockedLines.lines.lineElrInfo"
+    "$unset": [
+      "blockedLines.lines.lineElrInfo.from",
+      "blockedLines.lines.lineElrInfo.to"
+    ]
   },
   {
     "$set": {
-      "blockedLines.lines.lineElrInfo":
-      "$lineElrInfo",
+      "blockedLines.lines.lineElrInfo.from":
+      "$lineElrInfo.from",
+      "blockedLines.lines.lineElrInfo.to":
+      "$lineElrInfo.to",
       "blockedLines.lines.protectionLimits.from.limitType":
       "Signal",
       "blockedLines.lines.protectionLimits.from.limitValue":
