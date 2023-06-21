@@ -46,6 +46,40 @@
     }
   },
   {
+    "$addFields": {
+      "lineElrInfo.from": {
+        "$mergeObjects": [
+          "$lineElrInfo.from",
+          {
+            "trackId": {
+              "$first":
+              "$blockedLines.lines.lineElrInfo.from.trackId"
+            },
+            "mileage": {
+              "$first":
+              "$blockedLines.lines.lineElrInfo.from.mileage"
+            }
+          }
+        ]
+      },
+      "lineElrInfo.to": {
+        "$mergeObjects": [
+          "$lineElrInfo.to",
+          {
+            "trackId": {
+              "$first":
+              "$blockedLines.lines.lineElrInfo.to.trackId"
+            },
+            "mileage": {
+              "$first":
+              "$blockedLines.lines.lineElrInfo.to.mileage"
+            }
+          }
+        ]
+      }
+    }
+  },
+  {
     "$unset": [
       "blockedLines.lines.lineElrInfo.from",
       "blockedLines.lines.lineElrInfo.to"
