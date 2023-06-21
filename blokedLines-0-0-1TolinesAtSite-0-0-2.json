@@ -46,17 +46,20 @@
     }
   },
   {
+    "blockedLines.lines.lineElrInfo",
+  },
+  {
     "$set": {
-      "blockedLines.lines.lineElrInfo.from.elr": {
-        "$first": "$lineElrInfo.from.elr"
-      },
-      "blockedLines.lines.lineElrInfo.to.elr": {
-        "$first": "$lineElrInfo.to.elr"
-      },
-      "blockedLines.lines.protectionLimits.from.limitType": "Signal",
-      "blockedLines.lines.protectionLimits.from.limitValue": "$blockedLines.lines.protectionLimits.fromSignals",
-      "blockedLines.lines.protectionLimits.to.limitType": "Signal",
-      "blockedLines.lines.protectionLimits.to.limitValue": "$blockedLines.lines.protectionLimits.toSignals"
+      "blockedLines.lines.lineElrInfo":
+      "$lineElrInfo",
+      "blockedLines.lines.protectionLimits.from.limitType":
+      "Signal",
+      "blockedLines.lines.protectionLimits.from.limitValue":
+      "$blockedLines.lines.protectionLimits.fromSignals",
+      "blockedLines.lines.protectionLimits.to.limitType":
+      "Signal",
+      "blockedLines.lines.protectionLimits.to.limitValue":
+      "$blockedLines.lines.protectionLimits.toSignals"
     }
   },
   {
