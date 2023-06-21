@@ -149,7 +149,8 @@
       "blockedLines.lines.protectionLimits.signalPanel": 0,
       "blockedLines.lines.protectionLimits.fromSignals": 0,
       "blockedLines.lines.protectionLimits.toSignals": 0,
-      "blockedLines.lines.openOrBlocked": 0
+      "blockedLines.lines.openOrBlocked": 0,
+      "blockedLines.lines.unit":0
     }
   }
 ]
