@@ -8,35 +8,41 @@
   {
     "$lookup": {
       "from": "network-gbr-ELRs",
-      "localField": "blockedLines.lines.lineElrInfo.from.elr.code",
+      "localField":
+      "blockedLines.lines.lineElrInfo.from.elr.code",
       "foreignField": "elrCode",
       "as": "lineElrInfo.from.elr",
-      "pipeline": [{
-        "$project": {
-          "_id": 0,
-          "refDoc": "$_id",
-          "refDocVersion": "$_version",
-          "refDocCollection": "network-gbr/elrs",
-          "code": "$elrCode"
+      "pipeline": [
+        {
+          "$project": {
+            "_id": 0,
+            "refDoc": "$_id",
+            "refDocVersion": "$_version",
+            "refDocCollection": "network-gbr/elrs",
+            "code": "$elrCode"
+          }
         }
-      }]
+      ]
     }
   },
   {
     "$lookup": {
       "from": "network-gbr-ELRs",
-      "localField": "blockedLines.lines.lineElrInfo.to.elr.code",
+      "localField":
+      "blockedLines.lines.lineElrInfo.to.elr.code",
       "foreignField": "elrCode",
       "as": "lineElrInfo.to.elr",
-      "pipeline": [{
-        "$project": {
-          "_id": 0,
-          "refDoc": "$_id",
-          "refDocVersion": "$_version",
-          "refDocCollection": "network-gbr/elrs",
-          "code": "$elrCode"
+      "pipeline": [
+        {
+          "$project": {
+            "_id": 0,
+            "refDoc": "$_id",
+            "refDocVersion": "$_version",
+            "refDocCollection": "network-gbr/elrs",
+            "code": "$elrCode"
+          }
         }
-      }]
+      ]
     }
   },
   {
@@ -46,8 +52,34 @@
       },
       "blockedLines.lines.lineElrInfo.to.elr": {
         "$first": "$lineElrInfo.to.elr"
-      },
-      "blockedLines.lines.protectionStatus": "$blockedLines.lines.openOrBlocked"
+      }
+    }
+  },
+  {
+    "$addFields": {
+      "blockedLines.lines.protectionStatus": {
+        "$cond": {
+          "if": {
+            "$eq": [
+              "$blockedLines.lines.openOrBlocked",
+              "open"
+            ]
+          },
+          "then": "Open",
+          "else": {
+            "$cond": {
+              "if": {
+                "$eq": [
+                  "$blockedLines.lines.openOrBlocked",
+                  "blocked"
+                ]
+              },
+              "then": "Blocked",
+              "else": ""
+            }
+          }
+        }
+      }
     }
   },
   {
@@ -59,15 +91,19 @@
     }
   },
   {
-    "$set":
-    {
+    "$set": {
       "blockedLines.lines": "$lines"
     }
   },
   {
     "$project": {
       "_id": 0,
-      "lines": 0
+      "lines": 0,
+      "blockedLines.lines.protectionLimits.signalPanelId": 0,
+      "blockedLines.lines.protectionLimits.signalPanel": 0,
+      "blockedLines.lines.protectionLimits.fromSignals": 0,
+      "blockedLines.lines.protectionLimits.toSignals": 0,
+      "blockedLines.lines.openOrBlocked": 0
     }
   }
 ]
