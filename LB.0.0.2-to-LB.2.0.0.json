@@ -2,7 +2,7 @@
   "fieldToMigrate" : [
     {
       "field" : "blockedLines",
-      "aggregationPipeline" : "https://raw.githubusercontent.com/rmcmauricio/rhevo/main/blokedLines-0-0-1TolinesAtSite-0-0-2.json"
+      "aggregationPipeline" : "https://schemas.on-trac.co.uk/migration/fields/network-gbr/blockedLines-0-0-1TolinesAtSite-0-0-2.json"
     }
   ],
   "migrationIssues": [
@@ -29,6 +29,14 @@
     {
       "$addFields": {
         "shifts": ["$shift"]
+      }
+    },
+    {
+      "$set":
+      {
+        "applicationId": {
+          "$toString": "$applicationId"
+        }
       }
     },
     {
@@ -102,17 +110,24 @@
       }
     },
     {
-      "$project":{
-        "startDateTime":0,
-        "endDateTime":0,
-        "duration":0,
-        "requestId":0,
-        "workLocation":0,
-        "requesterUserId":0,
-        "planningAssistantId":0,
-        "lbRequesterUserProfile":0,
-        "planningAssistantUserProfile":0,
-        "shift":0
+      "$set":
+      {
+        "blockedLines.lines.protectionLimits.signalPanelId": null,
+        "blockedLines.lines.protectionLimits.signalPanel": null,
+        "blockedLines.lines.protectionLimits.fromSignals": null,
+        "blockedLines.lines.protectionLimits.toSignals": null,
+        "blockedLines.lines.openOrBlocked": null,
+        "blockedLines.lines.unit": null,
+        "startDateTime": null,
+        "endDateTime": null,
+        "duration": null,
+        "requestId": null,
+        "workLocation": null,
+        "requesterUserId": null,
+        "planningAssistantId": null,
+        "lbRequesterUserProfile": null,
+        "planningAssistantUserProfile": null,
+        "shift": null
       }
     }
   ]
