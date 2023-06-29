@@ -50,7 +50,7 @@
       "from": "network-gbr-signalPanel",
       "localField": "blockedLines.lines.protectionLimits.signalPanel",
       "foreignField": "name",
-      "as": "signalPanel",
+      "as": "blockedLines.lines.signalPanel",
       "pipeline": [
         {
           "$project": {
