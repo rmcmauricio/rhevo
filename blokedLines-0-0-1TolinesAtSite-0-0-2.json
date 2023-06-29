@@ -46,6 +46,26 @@
     }
   },
   {
+    "$lookup": {
+      "from": "network-gbr-signalPanel",
+      "localField": "blockedLines.lines.protectionLimits.signalPanel",
+      "foreignField": "name",
+      "as": "signalPanel",
+      "pipeline": [
+        {
+          "$project": {
+            "_id": 0,
+            "refDoc": "$_id",
+            "refDocVersion": "$_version",
+            "refDocCollection":
+            "network-gbr/signalPanel",
+            "code": "$elrCode"
+          }
+        }
+      ]
+    }
+  },
+  {
     "$addFields": {
       "lineElrInfo.from": {
         "$mergeObjects": [
