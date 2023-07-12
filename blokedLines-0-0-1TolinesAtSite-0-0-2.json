@@ -19,7 +19,14 @@
             "refDoc": "$_id",
             "refDocVersion": "$_version",
             "refDocCollection": "network-gbr/elrs",
-            "code": "$elrCode"
+            "elrCode": "$elrCode",
+            "mileageFrom": "$mileageFrom",
+            "mileageTo": "$mileageTo",
+            "nesaDiagrams": "$nesaDiagrams",
+            "trackIds": "$trackIds",
+            "inNESA": "$inNESA",
+            "inINM": "$inINM",
+            "lors": "$lors"
           }
         }
       ]
@@ -39,7 +46,14 @@
             "refDoc": "$_id",
             "refDocVersion": "$_version",
             "refDocCollection": "network-gbr/elrs",
-            "code": "$elrCode"
+            "elrCode": "$elrCode",
+            "mileageFrom": "$mileageFrom",
+            "mileageTo": "$mileageTo",
+            "nesaDiagrams": "$nesaDiagrams",
+            "trackIds": "$trackIds",
+            "inNESA": "$inNESA",
+            "inINM": "$inINM",
+            "lors": "$lors"
           }
         }
       ]
@@ -59,7 +73,7 @@
             "refDocVersion": "$_version",
             "refDocCollection":
             "network-gbr/signalPanel",
-            "code": "$elrCode"
+            "name": "$name"
           }
         }
       ]
@@ -169,6 +183,11 @@
       "blockedLines.lines.protectionLimits.signalPanel": 0,
       "blockedLines.lines.protectionLimits.fromSignals": 0,
       "blockedLines.lines.protectionLimits.toSignals": 0,
+      "blockedLines.lines.direction": 0,
+      "blockedLines.lines.electrification": 0,
+      "blockedLines.lines.protectionLimits.from.limitType": 0,
+      "blockedLines.lines.protectionLimits.to.limitType": 0,
+      "blockedLines.lines.protectionStatus": 0,
       "blockedLines.lines.openOrBlocked": 0,
       "blockedLines.lines.unit":0
     }
