@@ -2,7 +2,7 @@
   "fieldToMigrate" : [
     {
       "field" : "blockedLines",
-      "aggregationPipeline" : "https://raw.githubusercontent.com/rmcmauricio/rhevo/main/blokedLines-0-0-1TolinesAtSite-0-0-2.json"
+      "aggregationPipeline" : "https://schemas.on-trac.co.uk/migration/fields/network-gbr/blockedLines-0-0-1TolinesAtSite-0-0-2.json"
     }
   ],
   "migrationIssues": [
@@ -14,21 +14,17 @@
   "aggregationPipeline": [
     {
       "$addFields":{
-        "shift.type":"ad-hoc",
-        "shift.schedule.start":"$startDateTime",
-        "shift.schedule.end":"$endDateTime",
-        "shift.schedule.duration":"$duration",
+        "shifts.type":"ad-hoc",
+        "shifts.schedule.start":"$startDateTime",
+        "shifts.schedule.end":"$endDateTime",
+        "shifts.schedule.duration":"$duration",
         "requesterUserId":{
           "$toInt":"$lbRequesterUserProfile.userId"
         },
         "planningAssistantId":{
           "$toInt":"$planningAssistantUserProfile.userId"
-        }
-      }
-    },
-    {
-      "$addFields": {
-        "shifts": ["$shift"]
+        },
+        "migratedFrom": "https://schemas.on-trac.co.uk/documents/network-rail/line-blockage-request-0-0-2.json"
       }
     },
     {
@@ -63,7 +59,7 @@
         "from":"common-user",
         "localField":"requesterUserId",
         "foreignField":"p4dInternalUserId",
-        "as":"lbrequester",
+        "as":"lbRequester",
         "pipeline":[
           {
             "$project":{
@@ -71,7 +67,7 @@
               "refDoc":"$_id",
               "refDocVersion":"$_version",
               "refDocCollection":"network-gbr/common-user",
-              "fistName":"$firstName",
+              "firstName":"$firstName",
               "lastName":"$lastName"
             }
           }
@@ -126,8 +122,7 @@
         "requesterUserId": null,
         "planningAssistantId": null,
         "lbRequesterUserProfile": null,
-        "planningAssistantUserProfile": null,
-        "shift": null
+        "planningAssistantUserProfile": null
       }
     }
   ]
