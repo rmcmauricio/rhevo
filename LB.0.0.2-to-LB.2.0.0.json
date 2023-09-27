@@ -8,7 +8,7 @@
   "migrationIssues": [
     {
       "property": "workLocation",
-      "issue": "LB 1.0 has a freeform Worksite Location field. Some planners place the SA locations in that field. However, the data is unstructured and cannot be migrated from 1.0 to 2.0"
+      "issue": "Work Location entered in Line Block 1.0 : {{workLocation}}"
     }
   ],
   "aggregationPipeline": [
