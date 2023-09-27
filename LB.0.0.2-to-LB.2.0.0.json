@@ -3,12 +3,16 @@
     {
       "field" : "blockedLines",
       "aggregationPipeline" : "https://schemas.on-trac.co.uk/migration/fields/network-gbr/blockedLines-0-0-1TolinesAtSite-0-0-2.json"
-    }
+    },
   ],
   "migrationIssues": [
     {
       "property": "workLocation",
       "issue": "Work Location entered in Line Block 1.0 : {{workLocation}}"
+    },
+    {
+      "property": "requestId",
+      "issue": "TEST - old requestId {{requestId}}"
     }
   ],
   "aggregationPipeline": [
