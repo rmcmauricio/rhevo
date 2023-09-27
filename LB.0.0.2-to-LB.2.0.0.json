@@ -13,10 +13,6 @@
     {
       "property": "requestId",
       "issue": "TEST - old requestId {{requestId}}"
-    },
-    {
-      "property": "requestId",
-      "issue": "TEST - old requestId {{requestId}}"
     }
   ],
   "aggregationPipeline": [
