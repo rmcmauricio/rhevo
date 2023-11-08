@@ -1,0 +1,99 @@
+{
+  "$schema" : "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.on-trac.co.uk/documents/network-gbr/possessionPlanningSystem-1-0-0.json",
+  "title" : "Possession Planning System Document",
+  "description": "This contains all fields for Possession Planning System Document",
+  "type": "object",
+  "properties" : {
+    "$schema" : {
+      "type" : "string",
+      "description" : "URI for the document's schema"
+    },
+    "_id" : {
+      "type" : "object",
+      "properties" : {
+        "$oid": {
+          "type" : "string",
+          "description" : "Unique internal ID which is automatically assigned by MongoDB.",
+          "examples" : [ "5099803df3f4948bd2f98391" ]
+        }
+      }
+    },
+    "_version" : {
+      "type" : "integer",
+      "description" : "Version number that automatically increments each time this document changes."
+    },
+    "ppsRef" : {
+      "type" : "string",
+      "title": "Reference Number",
+      "description" : "Business Reference for the WON Item - allocated at T35-Weeks (DPPP)",
+      "examples" : [ "P2022/1391399" ]
+    },
+    "disruptiveClassification" : {
+      "type" : "string",
+      "title" : "Classification",
+      "description" : "Shows the impact on the Working TimeTable (WTT)",
+      "examples" : [ "passenger and freight"]
+    },
+    "generalRemarks" : {
+      "type" : "string",
+      "title" : "General Remarks tbc",
+      "description" : "Remarks used by many to quote lines blocked, protecting Signals etc/ref #'s etc",
+      "examples" : ["ECM-ALL-WER-STO-OTM\n\nNOT TO PASS P500 P502 WITHOUT THE SIGNALLERS PERMISSION"]
+    },
+    "protectionLimits" : {
+      "type" : "string",
+      "title" : "Protection Limits",
+      "description" : "In some routes they quote specifically how the lines are blocked",
+      "examples" : ["2300 Thu to 0055 Fri\nDown Fast: P1271Apts to P615\nUp Fast: P1316pts to P1272Apts\n\n0055 Fri to 0550 Fri\nDown Fast: P1271Apts to P615\nUp Fast: P1316pts to P1272Apts\nDown Slow: P1281pts to P613\nUp Slow: P1316pts to P1273pts"]
+    },
+    "isolations" : {
+      "type" : "string",
+      "title" : "Isolations",
+      "description" : "Indicates where electrified lines have been isolated before work takes place ",
+      "examples" : ["0115 Sun to 0640 Sun \n71, 72, 73, 74 Complete (DC Lines) "]
+    },
+    "trafficRemarks" : {
+      "type" : "string",
+      "title" : "Traffic Remarks",
+      "description" : "Alterations to running traffic to accommodate the Possession ",
+      "examples" : ["TRAINS TO BE RETIMED OVER THE SLOWS LINES BETWEEN HOLLOWAY AND WOOD GREEN NORTH/ NEW SOUTHGATE\n\nACCESS TO FERME PARK MUST BE AVAILABLE VIA THE DOWN SLOW 2 OR DOWN GOODS)"]
+    },
+    "possessionManager" : {
+      "type" : "string",
+      "title" : "Possession Manager",
+      "description": "Role or Function who is responsible for the Possession",
+      "examples" : "Anglia IMDM Colchester"
+    },
+    "blockedLines": {
+      "$ref": "https://schemas.on-trac.co.uk/fields/network-gbr/blockedLinesPps-0-0-1.json",
+      "title": "Blocked Lines"
+    },
+    "startTime": {
+      "title" : "Star Time",
+      "description": "Minimum date/time of the blocked lines",
+      "type" : "string",
+      "format" : "date-time"
+    },
+    "endTime": {
+      "title" : "End Time",
+      "description": "Maximum date/time of the blocked lines",
+      "type" : "string",
+      "format" : "date-time"
+    },
+    "documentInfo" : {
+      "$ref": "https://schemas.on-trac.co.uk/fields/common/documentInfo-1-0-0.json",
+      "title": "Document Info"
+    },
+    "documentHistory" : {
+      "$ref": "https://schemas.on-trac.co.uk/fields/common/documentHistory-1-0-0.json",
+      "title": "Document History"
+    },
+    "dataLineage" : {
+      "$ref" : "https://schemas.on-trac.co.uk/fields/common/dataLineage-1-0-0.json"
+    },
+    "dataIssues": {
+      "$ref" : "https://schemas.on-trac.co.uk/fields/common/dataIssues-1-0-0.json"
+    }
+  }
+}
