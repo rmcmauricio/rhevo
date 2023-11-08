@@ -73,10 +73,15 @@
       "type": "object",
       "title" : "Start Time",
       "description": "Minimum date/time of the blocked lines",
-     "properties": {
-            "$miliseconds": {
+      "properties": {
+        "$date": {
+          "type": "object",
+          "properties": {
+            "$numberLong": {
               "type": "string",
               "pattern": "^[0-9]+$"
+            }
+          }
         }
       }
     },
@@ -85,12 +90,17 @@
       "title" : "End Time",
       "description": "End date/time of the blocked lines",
       "properties": {
-            "$miliseconds": {
+        "$date": {
+          "type": "object",
+          "properties": {
+            "$numberLong": {
               "type": "string",
               "pattern": "^[0-9]+$"
+            }
+          }
         }
       }
-      },
+    },
     "documentInfo" : {
       "$ref": "https://schemas.on-trac.co.uk/fields/common/documentInfo-1-0-0.json",
       "title": "Document Info"
