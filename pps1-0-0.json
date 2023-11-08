@@ -1,6 +1,6 @@
 {
   "$schema" : "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://schemas.on-trac.co.uk/documents/network-gbr/possessionPlanningSystem-1-0-0.json",
+  "$id": "https://raw.githubusercontent.com/rmcmauricio/rhevo/main/pps1-0-0.json",
   "title" : "Possession Planning System Document",
   "description": "This contains all fields for Possession Planning System Document",
   "type": "object",
