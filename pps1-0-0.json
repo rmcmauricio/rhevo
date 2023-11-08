@@ -73,11 +73,12 @@
       "type" : "object",
       "properties" : {
         "$oid": {
-          "title" : "Star Time",
+          "title": "Star Time",
           "description": "Minimum date/time of the blocked lines",
-          "type" : "string",
-          "format" : "date-time"
+          "type": "string",
+          "format": "date-time"
         }
+      }
     },
     "endTime": {
       "type" : "object",
@@ -88,6 +89,7 @@
           "type": "string",
           "format": "date-time"
         }
+      }
     },
     "documentInfo" : {
       "$ref": "https://schemas.on-trac.co.uk/fields/common/documentInfo-1-0-0.json",
