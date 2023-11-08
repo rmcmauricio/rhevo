@@ -1,7 +1,7 @@
 {
   "$schema" : "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://raw.githubusercontent.com/rmcmauricio/rhevo/main/pps1-0-0.json",
-  "title" : "Possession Planning System Document",
+   "title" : "Possession Planning System Document",
   "description": "This contains all fields for Possession Planning System Document",
   "type": "object",
   "properties" : {
@@ -70,16 +70,24 @@
       "title": "Blocked Lines"
     },
     "startTime": {
-      "title" : "Star Time",
-      "description": "Minimum date/time of the blocked lines",
-      "type" : "string",
-      "format" : "date-time"
+      "type" : "object",
+      "properties" : {
+        "$oid": {
+          "title" : "Star Time",
+          "description": "Minimum date/time of the blocked lines",
+          "type" : "string",
+          "format" : "date-time"
+        }
     },
     "endTime": {
-      "title" : "End Time",
-      "description": "Maximum date/time of the blocked lines",
-      "type" : "string",
-      "format" : "date-time"
+      "type" : "object",
+      "properties" : {
+        "$oid": {
+          "title": "End Time",
+          "description": "Maximum date/time of the blocked lines",
+          "type": "string",
+          "format": "date-time"
+        }
     },
     "documentInfo" : {
       "$ref": "https://schemas.on-trac.co.uk/fields/common/documentInfo-1-0-0.json",
