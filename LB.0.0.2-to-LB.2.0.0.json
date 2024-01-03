@@ -5,14 +5,13 @@
       "aggregationPipeline" : "https://schemas.on-trac.co.uk/migration/fields/network-gbr/blockedLines-0-0-1TolinesAtSite-0-0-2.json"
     }
   ],
+  "migrationHandlers" : [
+      "blockageType"
+  ],
   "migrationIssues": [
     {
       "property": "workLocation",
-      "issue": "Work Location entered in Line Block 1.0 : {{workLocation}}"
-    },
-    {
-      "property": "requestId",
-      "issue": "TEST - old requestId {{requestId}}"
+      "issue": "Work Location entered in Line Block 1.0: {{workLocation}}"
     }
   ],
   "aggregationPipeline": [
@@ -27,8 +26,7 @@
         },
         "planningAssistantId":{
           "$toInt":"$planningAssistantUserProfile.userId"
-        },
-        "migratedFrom": "https://schemas.on-trac.co.uk/documents/network-rail/line-blockage-request-0-0-2.json"
+        }
       }
     },
     {
@@ -112,21 +110,24 @@
     {
       "$set":
       {
-        "blockedLines.lines.protectionLimits.signalPanelId": null,
-        "blockedLines.lines.protectionLimits.signalPanel": null,
-        "blockedLines.lines.protectionLimits.fromSignals": null,
-        "blockedLines.lines.protectionLimits.toSignals": null,
-        "blockedLines.lines.openOrBlocked": null,
-        "blockedLines.lines.unit": null,
-        "startDateTime": null,
-        "endDateTime": null,
-        "duration": null,
-        "requestId": null,
-        "workLocation": null,
-        "requesterUserId": null,
-        "planningAssistantId": null,
-        "lbRequesterUserProfile": null,
-        "planningAssistantUserProfile": null
+        "blockedLines.lines.protectionLimits.signalPanelId": "",
+        "blockedLines.lines.protectionLimits.signalPanel": "",
+        "blockedLines.lines.protectionLimits.fromSignals": "",
+        "blockedLines.lines.protectionLimits.toSignals": "",
+        "blockedLines.lines.openOrBlocked": "",
+        "blockedLines.lines.unit": "",
+        "startDateTime": "",
+        "endDateTime": "",
+        "duration": "",
+        "requestId": "",
+        "workLocation": "",
+        "requesterUserId": "",
+        "planningAssistantId": "",
+        "lbRequesterUserProfile": "",
+        "planningAssistantUserProfile": "",
+        "isClone": "",
+        "reasonAdditionalProtectionNotUsed": "",
+        "oldSchema": "https://schemas.on-trac.co.uk/documents/network-rail/line-blockage-request-0-0-2.json"
       }
     }
   ]
