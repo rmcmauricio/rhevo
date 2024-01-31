@@ -5,13 +5,13 @@
       "aggregationPipeline" : "https://raw.githubusercontent.com/rmcmauricio/rhevo/main/blokedLines-0-0-1TolinesAtSite-0-0-2.json"
     }
   ],
-  "migrationHandlers" : [
+ "migrationHandlers" : [
       "blockageType"
   ],
   "migrationIssues": [
     {
       "property": "workLocation",
-      "issue": "Work Location entered in Line Block 1.0: {{workLocation}}"
+      "issue": "The original Work Location is: {{workLocation}}. This must now be precisely stated on From / To Location"
     }
   ],
   "aggregationPipeline": [
@@ -70,7 +70,12 @@
               "refDocVersion":"$_version",
               "refDocCollection":"network-gbr/common-user",
               "firstName":"$firstName",
-              "lastName":"$lastName"
+              "lastName":"$lastName",
+              "email"
+              "route": "$route",
+              "workGroupSet": "$workGroupSet",
+              "discipline" : "$discipline",
+              "deliveryUnit" : "$deliveryUnit"
             }
           }
         ]
@@ -126,7 +131,6 @@
         "lbRequesterUserProfile": "",
         "planningAssistantUserProfile": "",
         "isClone": "",
-        "reasonAdditionalProtectionNotUsed": "",
         "oldSchema": "https://schemas.on-trac.co.uk/documents/network-rail/line-blockage-request-0-0-2.json"
       }
     }
