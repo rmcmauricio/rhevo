@@ -181,7 +181,35 @@
   {
     "$set": {
       "blockedLines.lines": "$lines",
-      "blockedLines.preferredUnits": {"$first": "$lines.unit"}
+      "blockedLines.preferedUnits": {
+        "$cond": {
+          "if": {
+            "$eq": [
+              {
+                "$first": "$lines.unit"
+              },
+              "yards"
+            ]
+          },
+          "then": "milesYards",
+          "else": {
+            "$cond": {
+              "if": {
+                "$eq": [
+                  {
+                    "$first": "$lines.unit"
+                  },
+                  "chains"
+                ]
+              },
+              "then": "milesChains",
+              "else": {
+                "$first": "$lines.unit"
+              }
+            }
+          }
+        }
+      }
     }
   },
   {
