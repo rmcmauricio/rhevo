@@ -62,21 +62,29 @@
   {
     "$lookup": {
       "from": "network-gbr-signalPanel",
-      "localField": "blockedLines.lines.protectionLimits.signalPanel",
-      "foreignField": "name",
-      "as": "blockedLines.lines.signalPanel",
+      "let": { "signalPanelName": "$blockedLines.lines.protectionLimits.signalPanel" },
       "pipeline": [
+        {
+          "$match": {
+            "$expr": {
+              "$eq": [
+                { "$toLower": "$name" },
+                { "$toLower": "$$signalPanelName"}
+              ]
+            }
+          }
+        },
         {
           "$project": {
             "_id": 0,
             "refDoc": "$_id",
             "refDocVersion": "$_version",
-            "refDocCollection":
-            "network-gbr/signalPanel",
+            "refDocCollection": "network-gbr/signalPanel",
             "name": "$name"
           }
         }
-      ]
+      ],
+      "as": "blockedLines.lines.signalPanel"
     }
   },
   {
@@ -172,7 +180,8 @@
   },
   {
     "$set": {
-      "blockedLines.lines": "$lines"
+      "blockedLines.lines": "$lines",
+      "blockedLines.preferredUnits": {"$first": "$lines.unit"}
     }
   },
   {
@@ -185,8 +194,6 @@
       "blockedLines.lines.protectionLimits.toSignals": 0,
       "blockedLines.lines.direction": 0,
       "blockedLines.lines.electrification": 0,
-      "blockedLines.lines.protectionLimits.from.limitType": 0,
-      "blockedLines.lines.protectionLimits.to.limitType": 0,
       "blockedLines.lines.protectionStatus": 0,
       "blockedLines.lines.openOrBlocked": 0,
       "blockedLines.lines.unit":0
