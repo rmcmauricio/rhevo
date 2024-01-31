@@ -2,7 +2,7 @@
   "fieldToMigrate" : [
     {
       "field" : "blockedLines",
-      "aggregationPipeline" : "https://schemas.on-trac.co.uk/migration/fields/network-gbr/blockedLines-0-0-1TolinesAtSite-0-0-2.json"
+      "aggregationPipeline" : "https://raw.githubusercontent.com/rmcmauricio/rhevo/main/blokedLines-0-0-1TolinesAtSite-0-0-2.json"
     }
   ],
   "migrationHandlers" : [
