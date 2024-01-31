@@ -71,7 +71,7 @@
               "refDocCollection":"network-gbr/common-user",
               "firstName":"$firstName",
               "lastName":"$lastName",
-              "email"
+              "email" : "$email",
               "route": "$route",
               "workGroupSet": "$workGroupSet",
               "discipline" : "$discipline",
