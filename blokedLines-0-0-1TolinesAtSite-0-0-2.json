@@ -1,232 +1,279 @@
 [
   {
-    "$unwind": {
-      "path": "$blockedLines.lines",
-      "includeArrayIndex": "index"
-    }
+    $addFields: {
+      "blockedLines.lines": {
+        $map: {
+          input: "$blockedLines.lines",
+          as: "item",
+          in: {
+            $mergeObjects: [
+              "$$item",
+              {
+                sequentialNumber: {
+                  $indexOfArray: [
+                    "$blockedLines.lines",
+                    "$$item",
+                  ],
+                },
+              },
+            ],
+          },
+        },
+      },
+    },
   },
   {
-    "$unwind": {
-      "path": "$blockedLines.lines.lineElrInfo",
-      "includeArrayIndex": "index"
-    }
+    $unwind: {
+      path: "$blockedLines.lines",
+      includeArrayIndex: "index",
+    },
   },
   {
-    "$lookup": {
-      "from": "network-gbr-ELRs",
-      "localField":
-      "blockedLines.lines.lineElrInfo.from.elr.code",
-      "foreignField": "elrCode",
-      "as": "lineElrInfo.from.elr",
-      "pipeline": [
+    $unwind: {
+      path: "$blockedLines.lines.lineElrInfo",
+      includeArrayIndex: "index",
+    },
+  },
+  {
+    $lookup: {
+      from: "network-gbr-ELRs",
+      localField:
+        "blockedLines.lines.lineElrInfo.from.elr.code",
+      foreignField: "elrCode",
+      as: "lineElrInfo.from.elr",
+      pipeline: [
         {
-          "$project": {
-            "_id": 0,
-            "refDoc": "$_id",
-            "refDocVersion": "$_version",
-            "refDocCollection": "network-gbr-elrs",
-            "elrCode": "$elrCode",
-            "mileageFrom": "$mileageFrom",
-            "mileageTo": "$mileageTo",
-            "nesaDiagrams": "$nesaDiagrams",
-            "trackIds": "$trackIds",
-            "inNESA": "$inNESA",
-            "inINM": "$inINM",
-            "lors": "$lors"
-          }
-        }
-      ]
-    }
+          $project: {
+            _id: 0,
+            refDoc: "$_id",
+            refDocVersion: "$_version",
+            refDocCollection: "network-gbr-elrs",
+            elrCode: "$elrCode",
+            mileageFrom: "$mileageFrom",
+            mileageTo: "$mileageTo",
+            nesaDiagrams: "$nesaDiagrams",
+            trackIds: "$trackIds",
+            inNESA: "$inNESA",
+            inINM: "$inINM",
+            lors: "$lors",
+          },
+        },
+      ],
+    },
   },
   {
-    "$lookup": {
-      "from": "network-gbr-ELRs",
-      "localField":
-      "blockedLines.lines.lineElrInfo.to.elr.code",
-      "foreignField": "elrCode",
-      "as": "lineElrInfo.to.elr",
-      "pipeline": [
+    $lookup: {
+      from: "network-gbr-ELRs",
+      localField:
+        "blockedLines.lines.lineElrInfo.to.elr.code",
+      foreignField: "elrCode",
+      as: "lineElrInfo.to.elr",
+      pipeline: [
         {
-          "$project": {
-            "_id": 0,
-            "refDoc": "$_id",
-            "refDocVersion": "$_version",
-            "refDocCollection": "network-gbr-elrs",
-            "elrCode": "$elrCode",
-            "mileageFrom": "$mileageFrom",
-            "mileageTo": "$mileageTo",
-            "nesaDiagrams": "$nesaDiagrams",
-            "trackIds": "$trackIds",
-            "inNESA": "$inNESA",
-            "inINM": "$inINM",
-            "lors": "$lors"
-          }
-        }
-      ]
-    }
+          $project: {
+            _id: 0,
+            refDoc: "$_id",
+            refDocVersion: "$_version",
+            refDocCollection: "network-gbr-elrs",
+            elrCode: "$elrCode",
+            mileageFrom: "$mileageFrom",
+            mileageTo: "$mileageTo",
+            nesaDiagrams: "$nesaDiagrams",
+            trackIds: "$trackIds",
+            inNESA: "$inNESA",
+            inINM: "$inINM",
+            lors: "$lors",
+          },
+        },
+      ],
+    },
   },
   {
-    "$lookup": {
-      "from": "network-gbr-signalPanel",
-      "let": { "signalPanelName": "$blockedLines.lines.protectionLimits.signalPanel" },
-      "pipeline": [
+    $lookup: {
+      from: "network-gbr-signalPanel",
+      let: {
+        signalPanelName:
+          "$blockedLines.lines.protectionLimits.signalPanel",
+      },
+      pipeline: [
         {
-          "$match": {
-            "$expr": {
-              "$eq": [
-                { "$toLower": "$name" },
-                { "$toLower": "$$signalPanelName"}
-              ]
-            }
-          }
+          $match: {
+            $expr: {
+              $eq: [
+                {
+                  $toLower: "$name",
+                },
+                {
+                  $toLower: "$$signalPanelName",
+                },
+              ],
+            },
+          },
         },
         {
-          "$project": {
-            "_id": 0,
-            "refDoc": "$_id",
-            "refDocVersion": "$_version",
-            "refDocCollection": "network-gbr-signalPanel",
-            "name": "$name"
-          }
-        }
+          $project: {
+            _id: 0,
+            refDoc: "$_id",
+            refDocVersion: "$_version",
+            refDocCollection:
+              "network-gbr-signalPanel",
+            name: "$name",
+          },
+        },
       ],
-      "as": "blockedLines.lines.signalPanel"
-    }
+      as: "blockedLines.lines.signalPanel",
+    },
   },
   {
-    "$addFields": {
+    $addFields: {
       "lineElrInfo.from": {
-        "$mergeObjects": [
+        $mergeObjects: [
           "$lineElrInfo.from",
           {
-            "trackId": "$blockedLines.lines.lineElrInfo.from.trackId",
-            "mileage": "$blockedLines.lines.lineElrInfo.from.mileage"
-          }
-        ]
+            trackId:
+              "$blockedLines.lines.lineElrInfo.from.trackId",
+            mileage:
+              "$blockedLines.lines.lineElrInfo.from.mileage",
+          },
+        ],
       },
       "lineElrInfo.to": {
-        "$mergeObjects": [
+        $mergeObjects: [
           "$lineElrInfo.to",
           {
-            "trackId": "$blockedLines.lines.lineElrInfo.to.trackId",
-            "mileage": "$blockedLines.lines.lineElrInfo.to.mileage"
-          }
-        ]
-      }
-    }
-  },
-  {
-    "$unset": [
-      "blockedLines.lines.lineElrInfo.from",
-      "blockedLines.lines.lineElrInfo.to"
-    ]
-  },
-  {
-    "$set": {
-      "blockedLines.lines.lineElrInfo.from":
-      "$lineElrInfo.from",
-      "blockedLines.lines.lineElrInfo.to":
-      "$lineElrInfo.to",
-      "blockedLines.lines.protectionLimits.from.limitType":
-      "Signal",
-      "blockedLines.lines.protectionLimits.from.limitValue":
-      "$blockedLines.lines.protectionLimits.fromSignals",
-      "blockedLines.lines.protectionLimits.to.limitType":
-      "Signal",
-      "blockedLines.lines.protectionLimits.to.limitValue":
-      "$blockedLines.lines.protectionLimits.toSignals"
-    }
-  },
-  {
-    "$addFields": {
-      "blockedLines.lines.protectionStatus": {
-        "$cond": {
-          "if": {
-            "$eq": [
-              "$blockedLines.lines.openOrBlocked",
-              "open"
-            ]
+            trackId:
+              "$blockedLines.lines.lineElrInfo.to.trackId",
+            mileage:
+              "$blockedLines.lines.lineElrInfo.to.mileage",
           },
-          "then": "Open",
-          "else": {
-            "$cond": {
-              "if": {
-                "$eq": [
-                  "$blockedLines.lines.openOrBlocked",
-                  "blocked"
-                ]
-              },
-              "then": "Blocked",
-              "else": ""
-            }
-          }
-        }
-      }
-    }
-  },
-  {
-    "$group": {
-      "_id": "$blockedLines.lines.lineName",
-      "blockedLines": {
-        "$first": "$blockedLines"
+        ],
       },
-      "elr": {
-        "$push": "$lineElrInfo"
-      }
-    }
+      seq: "$blockedLines.lines.sequentialNumber",
+    },
   },
   {
-    "$set":
-    {
-      "blockedLines.lines.lineElrInfo": "$elr"
-    }
+    $unset: [
+      "blockedLines.lines.lineElrInfo.from",
+      "blockedLines.lines.lineElrInfo.to",
+    ],
   },
   {
-    "$group": {
-      "_id": null,
-      "lines": {
-        "$push": "$blockedLines.lines"
-      }
-    }
+    $set: {
+      "blockedLines.lines.lineElrInfo.from":
+        "$lineElrInfo.from",
+      "blockedLines.lines.lineElrInfo.to":
+        "$lineElrInfo.to",
+      "blockedLines.lines.protectionLimits.from.limitType":
+        "Signal",
+      "blockedLines.lines.protectionLimits.from.limitValue":
+        "$blockedLines.lines.protectionLimits.fromSignals",
+      "blockedLines.lines.protectionLimits.to.limitType":
+        "Signal",
+      "blockedLines.lines.protectionLimits.to.limitValue":
+        "$blockedLines.lines.protectionLimits.toSignals",
+    },
   },
   {
-    "$set": {
+    $addFields: {
+      "blockedLines.lines.protectionStatus": {
+        $cond: {
+          if: {
+            $eq: [
+              "$blockedLines.lines.openOrBlocked",
+              "open",
+            ],
+          },
+          then: "Open",
+          else: {
+            $cond: {
+              if: {
+                $eq: [
+                  "$blockedLines.lines.openOrBlocked",
+                  "blocked",
+                ],
+              },
+              then: "Blocked",
+              else: "",
+            },
+          },
+        },
+      },
+    },
+  },
+  {
+    $group: {
+      _id: "$blockedLines.lines.lineName",
+      blockedLines: {
+        $first: "$blockedLines",
+      },
+      elr: {
+        $push: "$lineElrInfo",
+      },
+      seq: {
+        $first: "$seq",
+      },
+    },
+  },
+  {
+    $set: {
+      "blockedLines.lines.lineElrInfo": "$elr",
+    },
+  },
+  {
+    $sort:
+      /**
+       * Provide any number of field/order pairs.
+       */
+      {
+        seq: 1,
+      },
+  },
+  {
+    $group: {
+      _id: null,
+      lines: {
+        $push: "$blockedLines.lines",
+      },
+    },
+  },
+  {
+    $set: {
       "blockedLines.lines": "$lines",
       "blockedLines.preferredUnits": {
-        "$cond": {
-          "if": {
-            "$eq": [
+        $cond: {
+          if: {
+            $eq: [
               {
-                "$first": "$lines.unit"
+                $first: "$lines.unit",
               },
-              "yards"
-            ]
+              "yards",
+            ],
           },
-          "then": "milesYards",
-          "else": {
-            "$cond": {
-              "if": {
-                "$eq": [
+          then: "milesYards",
+          else: {
+            $cond: {
+              if: {
+                $eq: [
                   {
-                    "$first": "$lines.unit"
+                    $first: "$lines.unit",
                   },
-                  "chains"
-                ]
+                  "chains",
+                ],
               },
-              "then": "milesChains",
-              "else": {
-                "$first": "$lines.unit"
-              }
-            }
-          }
-        }
-      }
-    }
+              then: "milesChains",
+              else: {
+                $first: "$lines.unit",
+              },
+            },
+          },
+        },
+      },
+    },
   },
   {
-    "$project": {
-      "_id": 0,
-      "lines": 0,
+    $project: {
+      _id: 0,
+      lines: 0,
       "blockedLines.lines.protectionLimits.signalPanelId": 0,
       "blockedLines.lines.protectionLimits.signalPanel": 0,
       "blockedLines.lines.protectionLimits.fromSignals": 0,
@@ -235,7 +282,8 @@
       "blockedLines.lines.electrification": 0,
       "blockedLines.lines.protectionStatus": 0,
       "blockedLines.lines.openOrBlocked": 0,
-      "blockedLines.lines.unit":0
+      "blockedLines.lines.unit": 0,
+      "blockedLines.lines.sequentialNumber": 0,
     }
   }
 ]
