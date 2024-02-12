@@ -5,7 +5,15 @@
       "aggregationPipeline" : "https://raw.githubusercontent.com/rmcmauricio/rhevo/main/blokedLines-0-0-1TolinesAtSite-0-0-2.json"
     }
   ],
-
+  "migrationHandlers" : [
+      "blockageType"
+  ],
+  "migrationIssues": [
+    {
+      "property": "workLocation",
+      "issue": "The original Work Location is: {{workLocation}}. This must now be precisely stated on From / To Location"
+    }
+  ],
   "aggregationPipeline": [
     {
       "$addFields":{
@@ -42,7 +50,9 @@
               "refDoc":"$_id",
               "refDocVersion":"$_version",
               "refDocCollection":"network-gbr-planningAssistantArea",
-              "title":"$title"
+              "title":"$title",
+              "minApprovalDeadline": "$minApprovalDeadline",
+              "maxApprovalDeadline": "$maxApprovalDeadline"
             }
           }
         ]
@@ -100,7 +110,7 @@
             "$literal":"$schema"
           },
           "input":"$$ROOT",
-          "value":"https://schemas.on-trac.co.uk/documents/network-rail/line-blockage-request-2-0-0.json"
+          "value":"https://schemas.on-trac.co.uk/documents/network-rail/line-blockage-request-2-0-1.json"
         }
       }
     },
