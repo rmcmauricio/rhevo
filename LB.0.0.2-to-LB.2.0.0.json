@@ -5,15 +5,7 @@
       "aggregationPipeline" : "https://raw.githubusercontent.com/rmcmauricio/rhevo/main/blokedLines-0-0-1TolinesAtSite-0-0-2.json"
     }
   ],
- "migrationHandlers" : [
-      "blockageType"
-  ],
-  "migrationIssues": [
-    {
-      "property": "workLocation",
-      "issue": "The original Work Location is: {{workLocation}}. This must now be precisely stated on From / To Location"
-    }
-  ],
+
   "aggregationPipeline": [
     {
       "$addFields":{
