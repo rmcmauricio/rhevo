@@ -6,6 +6,12 @@
     }
   },
   {
+    "$unwind": {
+      "path": "$blockedLines.lines.lineElrInfo",
+      "includeArrayIndex": "index"
+    }
+  },
+  {
     "$lookup": {
       "from": "network-gbr-ELRs",
       "localField":
@@ -18,7 +24,7 @@
             "_id": 0,
             "refDoc": "$_id",
             "refDocVersion": "$_version",
-            "refDocCollection": "network-gbr/elrs",
+            "refDocCollection": "network-gbr-elrs",
             "elrCode": "$elrCode",
             "mileageFrom": "$mileageFrom",
             "mileageTo": "$mileageTo",
@@ -45,7 +51,7 @@
             "_id": 0,
             "refDoc": "$_id",
             "refDocVersion": "$_version",
-            "refDocCollection": "network-gbr/elrs",
+            "refDocCollection": "network-gbr-elrs",
             "elrCode": "$elrCode",
             "mileageFrom": "$mileageFrom",
             "mileageTo": "$mileageTo",
@@ -79,7 +85,7 @@
             "_id": 0,
             "refDoc": "$_id",
             "refDocVersion": "$_version",
-            "refDocCollection": "network-gbr/signalPanel",
+            "refDocCollection": "network-gbr-signalPanel",
             "name": "$name"
           }
         }
@@ -93,14 +99,8 @@
         "$mergeObjects": [
           "$lineElrInfo.from",
           {
-            "trackId": {
-              "$first":
-              "$blockedLines.lines.lineElrInfo.from.trackId"
-            },
-            "mileage": {
-              "$first":
-              "$blockedLines.lines.lineElrInfo.from.mileage"
-            }
+            "trackId": "$blockedLines.lines.lineElrInfo.from.trackId",
+            "mileage": "$blockedLines.lines.lineElrInfo.from.mileage"
           }
         ]
       },
@@ -108,14 +108,8 @@
         "$mergeObjects": [
           "$lineElrInfo.to",
           {
-            "trackId": {
-              "$first":
-              "$blockedLines.lines.lineElrInfo.to.trackId"
-            },
-            "mileage": {
-              "$first":
-              "$blockedLines.lines.lineElrInfo.to.mileage"
-            }
+            "trackId": "$blockedLines.lines.lineElrInfo.to.trackId",
+            "mileage": "$blockedLines.lines.lineElrInfo.to.mileage"
           }
         ]
       }
@@ -172,7 +166,24 @@
   },
   {
     "$group": {
-      "_id": "$_id",
+      "_id": "$blockedLines.lines.lineName",
+      "blockedLines": {
+        "$first": "$blockedLines"
+      },
+      "elr": {
+        "$push": "$lineElrInfo"
+      }
+    }
+  },
+  {
+    "$set":
+    {
+      "blockedLines.lines.lineElrInfo": "$elr"
+    }
+  },
+  {
+    "$group": {
+      "_id": null,
       "lines": {
         "$push": "$blockedLines.lines"
       }
@@ -181,7 +192,7 @@
   {
     "$set": {
       "blockedLines.lines": "$lines",
-      "blockedLines.preferedUnits": {
+      "blockedLines.preferredUnits": {
         "$cond": {
           "if": {
             "$eq": [
