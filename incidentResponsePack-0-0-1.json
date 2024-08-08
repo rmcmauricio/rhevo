@@ -1,6 +1,6 @@
 {
   "$schema" : "https://json-schema.org/draft/2020-12/schema",
-  "$id" : "https://schemas.on-trac.co.uk/documents/network-rail/incidentResponsePack-0-0-1.json",
+  "$id" : "https://raw.githubusercontent.com/rmcmauricio/rhevo/main/incidentResponsePack-0-0-1.json",
   "title" : "Incident Response Packs",
   "type" : "object",
   "properties" : {
